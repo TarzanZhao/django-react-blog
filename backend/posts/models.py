@@ -4,8 +4,8 @@ import uuid # for unique slug
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.conf import settings
-from django.db.models import permalink
-
+# from django.db.models import permalink
+from django.urls import reverse
 
 
 # Generate unique slug
@@ -32,7 +32,8 @@ class Post(models.Model):
     
     category = models.ForeignKey('categories.Category',
                                   related_name="posts",
-                                  blank=True, null=True)    
+                                  blank=True, null=True,
+                                  on_delete=models.CASCADE)
 
     tags = models.ManyToManyField('tags.Tag',
                                   related_name="posts",
@@ -50,9 +51,10 @@ class Post(models.Model):
 
         return super(Post, self).save(*args, **kwargs)
 
-    @permalink
+    # @permalink
     def get_absolute_url(self):
-        return ('post_detail', None, {'slug': self.slug })
+        # return ('post_detail', None, {'slug': self.slug })
+        return reverse('post_detail', args=(None, {'slug': self.slug }))
 
     
     class Meta:

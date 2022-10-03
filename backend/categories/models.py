@@ -1,6 +1,7 @@
 from django.db import models
-from django.db.models import permalink
+# from django.db.models import permalink
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 class Category(models.Model):
     title = models.CharField(max_length=64)    
@@ -15,10 +16,11 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
         
-    @permalink
+    # @permalink
     def get_absolute_url(self):
-        return ('view_category', None, {'slug': self.slug })
-
+        # return ('view_category', None, {'slug': self.slug })
+        return reverse('view_category', args=(None, {'slug': self.slug }))
+    
     class Meta:
         verbose_name_plural = "categories"
     

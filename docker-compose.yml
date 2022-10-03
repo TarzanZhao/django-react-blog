@@ -4,7 +4,7 @@ services:
   # Postgres container
   postgres:
     # Getting official postgres image
-    image: postgres:9.4
+    image: postgres:12
     # Taking password, databasename, etc from the env variables file
     env_file: ./backend/config/env
     # Creating a volume to preserve database data
